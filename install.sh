@@ -7,8 +7,9 @@ APP="/Applications/DevicesBattery.app"
 pkill -f "$APP" 2>/dev/null || true
 sleep 1  # let LaunchServices notice the old instance is gone (avoids open error -600)
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp .build/release/DevicesBattery "$APP/Contents/MacOS/"
+cp Assets/AppIcon.icns "$APP/Contents/Resources/"
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -18,6 +19,7 @@ cat > "$APP/Contents/Info.plist" <<'EOF'
     <key>CFBundleExecutable</key><string>DevicesBattery</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>LSUIElement</key><true/>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>Reads nearby AirPods battery levels from their Bluetooth broadcasts.</string>
 </dict></plist>
